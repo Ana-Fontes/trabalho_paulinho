@@ -1,22 +1,18 @@
 var app = WebApplication.Create();
 
-// lista para guardar os alunos em memória
 var alunos = new List<Aluno>();
 
-// GET todos os alunos
 app.MapGet("/alunos", () =>
 {
     return alunos;
 });
 
-// GET aluno por ID
 app.MapGet("/alunos/{id}", (int id) =>
 {
     var aluno = alunos.FirstOrDefault(a => a.Id == id);
     return aluno is null ? Results.NotFound() : Results.Ok(aluno);
 });
 
-// POST criar aluno
 app.MapPost("/alunos", (Aluno aluno) =>
 {
     // gera ID automático
@@ -25,7 +21,7 @@ app.MapPost("/alunos", (Aluno aluno) =>
     return Results.Ok("Aluno cadastrado!");
 });
 
-// PUT atualizar aluno
+
 app.MapPut("/alunos/{id}", (int id, Aluno alunoAtualizado) =>
 {
     var aluno = alunos.FirstOrDefault(a => a.Id == id);
@@ -36,7 +32,6 @@ app.MapPut("/alunos/{id}", (int id, Aluno alunoAtualizado) =>
     return Results.Ok("Aluno atualizado!");
 });
 
-// DELETE aluno
 app.MapDelete("/alunos/{id}", (int id) =>
 {
     var aluno = alunos.FirstOrDefault(a => a.Id == id);
